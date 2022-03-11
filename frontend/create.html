@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student</title>
+    <style>
+        body {
+            background-image: url(https://images.unsplash.com/photo-1494949649109-ecfc3b8c35df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80);
+        
+        }
+    </style>
+</head>
+<body>
+    <button type="submit"><a href="/leads">Back to home</a></button>
+    <h1 style="color:red;">Create student <h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ forms.as_p }}
+            <button type="submit">Send</button>
+            {% comment %} Enter your name <input type="text">
+            Enter your surname <input type="text">
+            Enter your age <input type="number"> {% endcomment %}
+        </form>
+
+
+
+</body>
+</html>
