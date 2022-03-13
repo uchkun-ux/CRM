@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-z92dd)r$f$7@ufyk(pj0@n2a$aocf9t!arz_ky9q2$e0tdlop1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mycrmfree.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -126,8 +126,8 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = 'AKIAQPMY646U6GSN7332'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'myfirstcrm'
+DEFAULT_FILE_STORAGE = ''
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+AWS_STORAGE_BUCKET_NAME = ''
 AWS_QUERYSTRING_AUTH = False
