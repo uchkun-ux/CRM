@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-z92dd)r$f$7@ufyk(pj0@n2a$aocf9t!arz_ky9q2$e0tdlop1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -117,17 +117,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [ 
-    BASE_DIR / "static",
-    ]
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATICFILES_DIRS = [ 
+#     BASE_DIR / "static",
+#     ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = 'AKIAQPMY646U6GSN7332'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'myfirstcrm'
-AWS_QUERYSTRING_AUTH = False
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_ACCESS_KEY_ID = 'AKIAQPMY646U6GSN7332'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'myfirstcrm'
+# AWS_QUERYSTRING_AUTH = False
