@@ -1,22 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Students info</title>
-    <style>
-        body {
-            background-image: url(https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80);
-        
-        }
-    </style>
-</head>
-<body style="background-color:#4400cc;">
+{% extends 'base.html' %}
+
+{% block title %}User Information {% endblock %}
+
+{% block content %}
+
 <button type="submit"><a href="/leads">Back to home</a></button>
     <h1 style="color:red;">Student info:<h1>
     <h2>Name:{{ lead.ismi }}</h2>
     <h2>Surname:{{ lead.familiyasi }}</h2>
     <h2>Age:{{ lead.yoshi }}</h2>
-</body>
-</html>
+    <button type="submit"><a href="/leads/{{ lead.pk }}/update">Update</a></button>
+    <button type="submit"><a href="/leads/{{ lead.pk }}/delete">Delete</a></button>
+    
+{% endblock %}

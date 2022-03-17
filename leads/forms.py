@@ -1,6 +1,17 @@
 from django import forms
+from .models import Lead
 
-class Leadform(forms.Form):
-    Name = forms.CharField(max_length=20)
-    Surname = forms.CharField(max_length=20)
-    Age = forms.IntegerField(min_value=0)
+class LeadModelForm(forms.ModelForm):
+    class Meta:
+        model = Lead
+        fields = (
+            "ismi",
+            "familiyasi",
+            "yoshi",
+            "agent"
+        )
+
+class LeadForm(forms.Form):
+    ismi = forms.CharField(max_length=20)
+    familiyasi = forms.CharField(max_length=20)
+    yoshi = forms.IntegerField(min_value=0)

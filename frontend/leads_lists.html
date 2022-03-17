@@ -1,38 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>High School</title>
-    <style>
-        body {
-            background-image: url(https://images.unsplash.com/photo-1596496050755-c923e73e42e1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHNjaG9vbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60);
-        
-        }
-        .mijoz {
-            padding-top: 15px;
-            padding-bottom: 15px;
-            padding-left: 8px;
-            padding-right: 8px;
-            margin-top: 10px;
-            background-color: #f6f6f6;
-            font-size: 21px;
-            font-family: Arial, Helvetika, sans-serif;
-            width: 100%;
-    }
-    </style>
-</head>
-<body >
-<h1 style="color:#004466;"> All students</h1>
+{% extends 'base.html' %}
+
+{% block title %}Information {% endblock %}
+
+{% block content %}
+
+<h2 style="color:#004466;"> All students</h2>
 {% comment %} <h1> Subsystem <h1> {% endcomment %}
 {% comment %} {{ leads }} {% endcomment %}
-<button type="submit"><a href="/leads/create/">Create student</a></button>
+<button type="submit"><a href="{% url 'leads:lead-create' %}">Create student</a></button>
 <ul>
 {% for lead in leads %}
     {% comment %} <li>{{ lead }}</li> {% endcomment %}
     <div class="mijoz">
-        <a href="/leads/{{lead.pk}}/">{{ lead.ismi }} {{ lead.familiyasi }}</a>
+        {% comment %} <a href="/leads/{{lead.pk}}/">{{ lead.ismi }} {{ lead.familiyasi }}</a> {% endcomment %}
+        <a href="{% url 'leads:detallar' lead.pk %}">{{ lead.ismi }} {{ lead.familiyasi }}</a>
         {{ lead.yoshi }}
     </div>
     
@@ -40,5 +21,4 @@
 {% endfor %}
 </ul>
 
-</body>
-</html>
+{% endblock %}
