@@ -1,21 +1,33 @@
-from tkinter import CASCADE
 from django.db import models
+from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     pass
 
-# Create your models here.
+class UserProfil(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return str(self.user.username)
+
 class Lead(models.Model):
     ismi = models.CharField(max_length=20)
     familiyasi = models.CharField(max_length=20)
     yoshi = models.IntegerField(default=0)
-    agent = models.ForeignKey("Agent", on_delete=models.CASCADE)
+    agent = models.ForeignKey("Agent", blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.familiyasi)
 
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profil = models.ForeignKey(UserProfil, on_delete=models.CASCADE)
     def __str__(self):
         return str(self.user)
+
+def post_user_yaratish(sender, instance, created, **kwargs):
+    if created:
+        UserProfil.objects.create(user=instance)
+
+post_save.connect(post_user_yaratish, sender=User)

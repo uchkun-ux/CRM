@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
-from .models import Lead, User, Agent
+from .models import Lead, User, Agent, UserProfil
 
 admin.site.register(Lead)
 admin.site.register(User)
+admin.site.register(UserProfil)
 admin.site.register(Agent)
+
