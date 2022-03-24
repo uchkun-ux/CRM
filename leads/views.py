@@ -1,99 +1,66 @@
-from django.shortcuts import render, redirect, reverse
-# from django.shortcuts import get_object_or_404
+from django.core.mail import send_mail
+from django.shortcuts import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
-from . import models
+from .models import *
 from .forms import *
-import leads
+from agents.mixins import OrganiserAndLoginRequiredMixin
 
-class SignupView(CreateView):
+class SigupView(CreateView):
     template_name = "registration/signup.html"
     form_class = NewUserForm
     
     def get_success_url(self):
-        return reverse('leads:listlar')
+        return reverse("leads:lead-list")
 
 class HomeView(TemplateView):
     template_name = "home.html"
 
-class ListsView(LoginRequiredMixin, ListView):
-    template_name = "leads_lists.html"
-    queryset = models.Lead.objects.all()
+class LeadListView(LoginRequiredMixin, ListView):
+    template_name = "leads/leads_list.html"
     context_object_name = "leads"
 
-class LeadDetailView(LoginRequiredMixin, DetailView):
-    template_name = "details.html"
-    queryset = models.Lead.objects.all()
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_organisor:
+            queryset = Lead.objects.filter(organisation = user.userprofile)
+        else:
+            queryset = Lead.objects.filter(organisation = user.agent.organisation) 
+            queryset = queryset.filter(agent__user = self.request.user)
+        return queryset
+
+class LeadDetailView(OrganiserAndLoginRequiredMixin, DetailView):
+    template_name = "leads/leads_detail.html"
+    queryset = Lead.objects.all()
     context_object_name = "lead"
 
-class LeadCreateView(LoginRequiredMixin, CreateView):
-    template_name = "leads/create.html"
+class LeadCreateView(OrganiserAndLoginRequiredMixin, CreateView):   
+    template_name = "leads/leads_create.html"
     form_class = LeadModelForm
-
-class LeadUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = "leads/update.html"
-    form_class = LeadModelForm
-    queryset = models.Lead.objects.all()
-
-    def get_success_url(self):
-        return reverse('leads:listlar')
-
-
-class LeadDeleteView(LoginRequiredMixin, DeleteView):
-    template_name = "leads/delete.html"
-    form_class = LeadModelForm
-    queryset = models.Lead.objects.all()
-
-    def get_success_url(self):
-        return reverse('leads:listlar')
-
-
-# def home(request):
-#     return render(request, "home.html")
-# class HomeView(TemplateView):
-#     template_name = "home.html"
-
-# def leads_lists(request):
-#     leads = models.Lead.objects.all()
-#     context = {
-#         "leads": leads
-#     }
-#     return render(request, "leads_lists.html", context)
-
-# def lead_detail(request, pk):
-#     lead = get_object_or_404(models.Lead, id=pk)
-#     context = {
-#         "lead": lead
-#     }
-#     return render(request, 'details.html', context)
-
-# def lead_create(request):
-#     form = LeadModelForm()
-#     if request.method == "POST":
-#         form = LeadModelForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('/leads')
-#     context = {
-#         'forms': form
-#     }
-#     return render(request, "create.html", context)
-
-def lead_update(request, pk):
-    lead = models.Lead.objects.get(id=pk)
-    form = LeadModelForm(instance=lead)
-    if request.method == "POST":
-        form = LeadModelForm(request.POST, instance=lead)
-        if form.is_valid():
-            form.save()
-            return redirect('/leads')
-    context = {
-        'lead': lead, 
-        'form': form
-    }
-    return render(request, "update.html", context)
     
-# def lead_delete(request, pk):
-#     lead = models.Lead.objects.get(id=pk)
-#     lead.delete()
-#     return redirect("/leads")
+    def get_success_url(self):
+        return reverse("leads:lead-list")
+
+    # def form_valid(self, form):
+    #     send_mail(
+    #         subject="Bu lead yaratilingan",
+    #         message="Yangi lead yarat",
+    #         from_email="test@test.com",
+    #         recipient_list=["test2@test.com"],
+    #     )
+    #     return super(LeadCreateView, self).form_valid(form)
+
+class LeadUpdateView(OrganiserAndLoginRequiredMixin, UpdateView):
+    template_name = "leads/leads_update.html"
+    queryset = Lead.objects.all()
+    form_class = LeadModelForm
+    
+    def get_success_url(self):
+        return reverse("leads:lead-list")
+
+class LeadDeleteView(OrganiserAndLoginRequiredMixin, DeleteView):
+    template_name = "leads/leads_delete.html"
+    queryset = Lead.objects.all()
+    
+    def get_success_url(self):
+        return reverse("leads:lead-list")

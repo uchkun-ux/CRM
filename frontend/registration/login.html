@@ -1,17 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %} Login page {% endblock %}
+{% block title %} SUCRM - Login {% endblock %}
 
 {% block content %}
-
-    <a href="/leads/">Mijozlar bo'limi</a>
-    <br>
-    {% comment %} <h1>Mijoz yaratish</h1> {% endcomment %}
     <form method="post">
         <p>
         {% csrf_token %} 
+        <br>
         {{ form.as_p }}
-        <button type="submit">Log in</button>
+        <button type="submit">Login</button>
     </form>
-
 {% endblock %}

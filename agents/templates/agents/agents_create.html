@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %} SUCRM - SignUp {% endblock %}
+{% block title %} Agent yaratish {% endblock %}
 
 {% block content %}
+
+    <a href="/agents/">Agentlar bo'limi</a>
+
     <form method="post">
         <p>
         {% csrf_token %} 
         <br>
         {{ form.as_p }}
-        <button type="submit">Signup</button>
+        <button type="submit">Jo'natish</button>
     </form>
+
 {% endblock %}
