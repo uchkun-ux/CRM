@@ -1,1 +1,2 @@
-SUSYS CRM SYSTEM
+CRM SYSTEM
+This project made with SUSYS for learn Python/Django
